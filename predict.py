@@ -31,7 +31,7 @@ def predict_mnist(digit: Optional[int] = None, n_sample: int = 5, guide_w: float
     n_classes = 10
     n_feat = 128
     save_dir = './data/diffusion_output/prediction/'
-    path = './data/diffusion_output/model_19.pth'
+    path = './data/diffusion_output/model_4.pth'
     
     # Create save directory if it doesn't exist
     os.makedirs(save_dir, exist_ok=True)

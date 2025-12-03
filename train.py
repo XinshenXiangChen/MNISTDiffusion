@@ -12,12 +12,12 @@ from network import DDPM, UNET
 
 def train_mnist():
     # hardcoding these here
-    n_epoch = 5
+    n_epoch = 20
     batch_size = 256
     n_T = 400  # 500
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
     n_classes = 10
-    n_feat = 128  # 128 ok, 256 better (but slower)
+    n_feat = 256  # 128 ok, 256 better (but slower)
     lrate = 1e-4
     save_model = True
     save_dir = './data/diffusion_output/'
