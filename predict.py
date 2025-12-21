@@ -27,7 +27,7 @@ def predict_mnist(digit: Optional[int] = None, n_sample: int = 5, guide_w: float
         save_name: Name of the output file
     """
     n_T = 400 # 500
-    device = "cpu"
+    device = "cuda:0"
     n_classes = 10
     n_feat = 128
     save_dir = './data/diffusion_output/prediction/'

@@ -311,14 +311,18 @@ class DDPM(nn.Module):
         print()
         for i in range(self.n_T, 0, -1):
             print(f'sampling timestep {i}', end='\r')
-            t_is = torch.tensor([i / self.n_T]).to(device)
-            t_is = t_is.repeat(n_sample, 1, 1, 1)
+            # Create time tensor with correct shape [batch_size] for embedding
+            t_is = (torch.ones(n_sample) * i / self.n_T).to(device)
 
-            # double batch
+            # double batch for classifier-free guidance
             x_i = x_i.repeat(2, 1, 1, 1)
-            t_is = t_is.repeat(2, 1, 1, 1)
+            t_is = t_is.repeat(2)
 
-            z = torch.randn(n_sample, *size).to(device) if i > 1 else 0
+            # Add noise for all steps except the last one (i=1)
+            if i > 1:
+                z = torch.randn(n_sample, *size).to(device)
+            else:
+                z = torch.zeros(n_sample, *size).to(device)
 
             # split predictions and compute weighting
             eps = self.nn_model(x_i, c_i, t_is, context_mask)
